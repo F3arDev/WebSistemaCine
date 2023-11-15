@@ -6,23 +6,38 @@
 					<i class="bi bi-person-circle mb-4"></i>
 					<h1 class="h3 mb-3 fw-normal">INICIAR SESION</h1>
 				</div>
-				
+
 				<div class="form-floating">
-					<input type="text" class="form-control" id="inputUser" placeholder="Usuario">
+					<input v-model="username" type="text" class="form-control" id="inputUser" placeholder="Usuario">
 					<label for="floatingInput">Usuario</label>
 				</div>
 				<div class="form-floating">
-					<input type="password" class="form-control" id="inputPass" placeholder="Contraseña">
+					<input v-model="password" type="password" class="form-control" id="inputPass" placeholder="Contraseña">
 					<label for="floatingPassword">Contraseña</label>
 				</div>
-				<button class="btn btn-primary w-100 py-2" type="submit">Ingresar</button>
+				<button @click="login()" class="btn btn-primary w-100 py-2" type="submit">Ingresar</button>
 			</form>
 		</main>
 	</div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const username = ref('');
+const password = ref('');
+const router = useRouter();
+const login = async () => {
+	
 
+	if (userRole === 'admin') {
+		router.push('/admin');
+	} else if (userRole === 'user') {
+		router.push('/user');
+	} else {
+		router.push('/access-denied');
+	}
+};
 </script>
 
 <style scoped>
