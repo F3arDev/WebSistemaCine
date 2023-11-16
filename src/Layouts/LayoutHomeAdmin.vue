@@ -39,12 +39,14 @@
 						<hr>
 						<ul class="nav nav-pills flex-column mb-auto">
 							<li class="nav-item">
-								<a class="nav-link active" aria-current="page">
-									<svg class="bi pe-none me-2" width="16" height="16">
-										<use xlink:href="#home"></use>
-									</svg>
-									Home
-								</a>
+								<router-link to="/admin">
+									<a class="nav-link active" aria-current="page">
+										<svg class="bi pe-none me-2" width="16" height="16">
+											<use xlink:href="#home"></use>
+										</svg>
+										Home
+									</a>
+								</router-link>
 							</li>
 							<li>
 								<a class="nav-link link-body-emphasis">
@@ -55,13 +57,15 @@
 								</a>
 							</li>
 							<li>
-								<a class="nav-link link-body-emphasis">
-									<svg class="bi pe-none me-2" width="16" height="16">
-										<use xlink:href="#table"></use>
-									</svg>
-									Orders
-									<router-link to="/admin/test">Test</router-link>
-								</a>
+								<router-link to="/admin/test">
+									<a class="nav-link link-body-emphasis">
+										<svg class="bi pe-none me-2" width="16" height="16">
+											<use xlink:href="#table"></use>
+										</svg>
+										Orders
+
+									</a>
+								</router-link>
 							</li>
 							<hr>
 							<li>

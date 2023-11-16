@@ -11,33 +11,28 @@ import HomeEmployView from '../views/EmployViews/HomeEmployView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    //Login path
     {
       path: '/',
       name: 'login',
       component: Login
     },
+    //Employs path
     {
       path: '/empleado',
       name: 'empleado',
       component: HomeEmployView,
       meta: { requiresAuth: true, roles: ['empleado'] }
     },
+    //admin path
     {
       path: '/admin',
       name: 'admin',
       component: Home,
       redirect: '/admin/home',
       children: [
-        {
-          path: 'home',
-          name: 'home',
-          component: homeView,
-        },
-        {
-          path: 'test',
-          name: 'test',
-          component: TestView,
-        }
+        { path: 'home', name: 'home', component: homeView },
+        { path: 'test', name: 'test', component: TestView }
       ]
       // meta: { requiresAuth: true, roles: ['Administrador'] }
     }
