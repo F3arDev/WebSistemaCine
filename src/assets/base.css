@@ -1,8 +1,18 @@
 main {
   background-color: #ecf0f1;
 }
+
 body {
   background-color: #ecf0f1;
 }
 
-
+.divCard {
+  padding: 25px 25px 25px 25px;
+  margin: 0px 15px 15px 0px;
+  background-color: #fff;
+  /* Color de fondo del formulario */
+  border-radius: 10px;
+  /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Sutil sombra */
+}

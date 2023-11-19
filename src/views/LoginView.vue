@@ -27,15 +27,15 @@ import { useRouter } from 'vue-router';
 const username = ref('');
 const password = ref('');
 const router = useRouter();
+
+const userRole = 'admin';
 const login = async () => {
-
-
 	if (userRole === 'admin') {
 		router.push('/admin');
 	} else if (userRole === 'user') {
 		router.push('/user');
 	} else {
-		router.push('/access-denied');
+		// router.push('/access-denied');
 	}
 };
 </script>

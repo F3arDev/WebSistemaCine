@@ -2,11 +2,20 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/views/LoginView.vue'
 
 
-import Home from '../views/AdminViews/Home.vue'
-import TestView from '../views/AdminViews/TestView.vue'
-import homeView from '../views/AdminViews/HomeView.vue'
+import HomeAdmin from '../views/AdminViews/Home.vue'
 
+import adminhomeView from '../views/AdminViews/HomeView.vue'
+import adminCartelerasView from '../views/AdminViews/CartelerasView.vue'
+import adminPeliculas from '../views/AdminViews/PeliculasView.vue'
+import adminSalaCine from '../views/AdminViews/SalaCine.vue'
+
+
+
+
+import HomeEmploy from '../views/EmployViews/Home.vue'
 import HomeEmployView from '../views/EmployViews/HomeEmployView.vue'
+import employBoletosView from '../views/EmployViews/BoletosView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,22 +26,29 @@ const router = createRouter({
       name: 'login',
       component: Login
     },
-    //Employs path
-    {
-      path: '/empleado',
-      name: 'empleado',
-      component: HomeEmployView,
-      meta: { requiresAuth: true, roles: ['empleado'] }
-    },
     //admin path
     {
       path: '/admin',
       name: 'admin',
-      component: Home,
+      component: HomeAdmin,
       redirect: '/admin/home',
       children: [
-        { path: 'home', name: 'home', component: homeView },
-        { path: 'test', name: 'test', component: TestView }
+        { path: 'home', name: 'AdminHome', component: adminhomeView },
+        { path: 'carteleras', name: 'AdminCarteleras', component: adminCartelerasView },
+        { path: 'peliculas', name: 'AdminPeliculas', component: adminPeliculas },
+        { path: 'salaCine', name: 'AdminSalaCine', component: adminSalaCine }
+      ]
+      // meta: { requiresAuth: true, roles: ['Administrador'] }
+    },
+    //employs path
+    {
+      path: '/employ',
+      name: 'employ',
+      component: HomeEmploy,
+      redirect: '/employ/home',
+      children: [
+        { path: 'home', name: 'Employhome', component: HomeEmployView },
+        { path: 'boletos', name: 'EmployBoletos', component: employBoletosView }
       ]
       // meta: { requiresAuth: true, roles: ['Administrador'] }
     }

@@ -34,31 +34,17 @@
 						<ul class="nav nav-pills flex-column mb-auto" id="pills-tab" role="tablist">
 							<li class="nav-item" role="presentation">
 
-								<router-link to="/admin/home" class="nav-link"
-									:class="{ 'active': isRouteActive('/admin/home') }" exact>
+								<router-link to="/employ/home" class="nav-link"
+									:class="{ 'active': isRouteActive('/employ/home') }" exact>
 									<i class="bi bi-house mx-1"></i>
 									Inicio
 								</router-link>
 							</li>
 							<li class="nav-item" role="presentation">
-								<router-link to="/admin/carteleras" class="nav-link"
-									:class="{ 'active': isRouteActive('/admin/carteleras') }">
+								<router-link to="/employ/boletos" class="nav-link"
+									:class="{ 'active': isRouteActive('/employ/boletos') }">
 									<i class="bi bi-file-earmark-text mx-1"></i>
-									Carteleras
-								</router-link>
-							</li>
-							<li class="nav-item" role="presentation">
-								<router-link to="/admin/peliculas" class="nav-link"
-									:class="{ 'active': isRouteActive('/admin/peliculas') }">
-									<i class="bi bi-file-earmark-text mx-1"></i>
-									Peliculas
-								</router-link>
-							</li>
-							<li class="nav-item" role="presentation">
-								<router-link to="/admin/salaCine" class="nav-link"
-									:class="{ 'active': isRouteActive('/admin/salaCine') }">
-									<i class="bi bi-file-earmark-text mx-1"></i>
-									Salas de Cine
+									Generar Boletos
 								</router-link>
 							</li>
 						</ul>
