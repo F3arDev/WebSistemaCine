@@ -22,9 +22,7 @@
 						</div>
 					</div>
 					<div class="col divCard">
-						<div>
-							Asiento
-						</div>
+						<gridSalas />
 					</div>
 				</div>
 				<div class="row">
@@ -49,6 +47,8 @@
 import dtPeliculas from '../../components/employComponent/dtPeliculas.vue';
 import dtBoletos from '../../components/employComponent/dtBoletos.vue'
 import dropdownCliente from '../../components/employComponent/dropdownCliente.vue';
+
+import gridSalas from '../../components/employComponent/gridSalas.vue';
 </script>
 
 <style scoped></style>
