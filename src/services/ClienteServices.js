@@ -13,7 +13,6 @@ class ClienteServices {
 			const url = 'http://sistemacine.somee.com/api/Cliente/ListarClientes';
 			const result = await fetch(url)
 			const json = await result.json();
-			debugger
 			this.cliente.value = await json.response;
 		} catch (error) {
 			console.log(error)

@@ -23,10 +23,11 @@ const dropdownItems = ref([
 ]);
 
 const selectedItem = ref(null);
-
+const emit = defineEmits(['gridData']);
 const selectItem = (item) => {
 	selectedItem.value = item.label;
 	console.log(`Item seleccionado: ${item.label} con ID: ${item.id}`);
+	emit('gridData', item.id);
 };
 </script>
 

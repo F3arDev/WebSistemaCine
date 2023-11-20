@@ -14,6 +14,8 @@
 
 <script setup>
 import { ref } from 'vue';
+
+const emits = defineEmits(['asiento'])
 const reservedSeats = {
 	records1: {
 		seat: "1",
@@ -44,10 +46,8 @@ const reservedSeats = {
 		}
 	}
 };
-
 const seats = ref([]);
 const selectedSeats = ref([]);
-
 const makeRows = (sectionLength, placement) => {
 	let newSeats = [];
 	let counter = 1;
@@ -56,43 +56,40 @@ const makeRows = (sectionLength, placement) => {
 		counter++;
 	}
 	seats.value = newSeats;
-};
-
-makeRows(27, 'middle');
-
-for (const key in reservedSeats) {
-	if (reservedSeats.hasOwnProperty(key)) {
-		const obj = reservedSeats[key];
-		const seatIndex = seats.value.findIndex((seat) => seat.id.toString() === obj.seat);
-		if (seatIndex !== -1) {
-			seats.value[seatIndex].class = 'r';
-			seats.value[seatIndex].label = 'R';
+	for (const key in reservedSeats) {
+		if (reservedSeats.hasOwnProperty(key)) {
+			const obj = reservedSeats[key];
+			const seatIndex = seats.value.findIndex((seat) => seat.id.toString() === obj.seat);
+			if (seatIndex !== -1) {
+				seats.value[seatIndex].class = 'r';
+				seats.value[seatIndex].label = 'R';
+			}
 		}
 	}
-}
+};
+
 
 const seatSelectionProcess = (seat) => {
-
-	console.log(seat);
-
+	emits('asiento', seat.id)
 	// Desactivar la selección en otros asientos
 	seats.value.forEach((otherSeat) => {
 		if (otherSeat !== seat) {
 			otherSeat.selected = false;
 		}
 	});
-
 	seat.selected = !seat.selected;
 };
 
+const SeatingComponent = (number) => makeRows(number, 'middle');
 
+defineExpose({ SeatingComponent });
 </script>
 
 <style scoped>
 #seating {
 	display: flex;
 	justify-content: center;
-	
+
 	/* Esto asegura que el contenedor ocupe al menos el 100% del alto de la pantalla */
 }
 
