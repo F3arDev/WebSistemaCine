@@ -3,15 +3,20 @@ import { ref } from 'vue'
 class FacturaServices {
 	facturas;
 	facturaID;
+	facturasXID;
 	constructor() {
 		this.factura = ref([])
 		this.facturaID = ref()
+		this.facturasXID = ref([])
 	}
 	getFacturas() {
 		return this.facturas
 	}
 	getFacturaID() {
 		return this.facturaID
+	}
+	getfacturasXID() {
+		return this.facturasXID
 	}
 	async fetchAll() {
 		try {
@@ -49,5 +54,18 @@ class FacturaServices {
 			console.error('Error:', error.message);
 		}
 	}
+
+	async fetchFacturaID(id) {
+		try {
+			const url = `http://www.sistemacine.somee.com/api/Factura/ObtenerFactura/${id}`;
+			const result = await fetch(url)
+			const json = await result.json();
+			debugger
+			this.facturasXID.value = await json.response;
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
 }
 export default FacturaServices;

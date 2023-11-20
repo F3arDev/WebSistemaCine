@@ -16,39 +16,38 @@
 import { ref } from 'vue';
 
 const emits = defineEmits(['asiento'])
-const reservedSeats = {
-	records1: {
-		seat: "1",
-		owner: {
-			fname: "Jenny",
-			lname: "Augustin"
-		}
-	},
-	records2: {
-		seat: "4",
-		owner: {
-			fname: "Lise C",
-			lname: "Dugue"
-		}
-	},
-	records3: {
-		seat: "25",
-		owner: {
-			fname: "Ashleyca C.",
-			lname: "Dugue"
-		}
-	},
-	records4: {
-		seat: "5",
-		owner: {
-			fname: "Roselaine",
-			lname: "André"
-		}
-	}
-};
+const reservedSeats = [];
+// const reservedSeats = {
+// 	records1: {
+// 		seat: "1",
+
+// 	},
+// 	records2: {
+// 		seat: "4",
+// 		owner: {
+// 			fname: "Lise C",
+// 			lname: "Dugue"
+// 		}
+// 	},
+// 	records3: {
+// 		seat: "25",
+// 		owner: {
+// 			fname: "Ashleyca C.",
+// 			lname: "Dugue"
+// 		}
+// 	},
+// 	records4: {
+// 		seat: "5",
+// 		owner: {
+// 			fname: "Roselaine",
+// 			lname: "André"
+// 		}
+// 	}
+// };
 const seats = ref([]);
 const selectedSeats = ref([]);
-const makeRows = (sectionLength, placement) => {
+const makeRows = (sectionLength, array) => {
+	debugger
 	let newSeats = [];
 	let counter = 1;
 	for (let i = 0; i < sectionLength; i++) {
@@ -56,16 +55,35 @@ const makeRows = (sectionLength, placement) => {
 		counter++;
 	}
 	seats.value = newSeats;
-	for (const key in reservedSeats) {
-		if (reservedSeats.hasOwnProperty(key)) {
-			const obj = reservedSeats[key];
-			const seatIndex = seats.value.findIndex((seat) => seat.id.toString() === obj.seat);
-			if (seatIndex !== -1) {
-				seats.value[seatIndex].class = 'r';
-				seats.value[seatIndex].label = 'R';
-			}
+
+	reservedSeats = array
+	
+	reservedSeats.forEach(reservedSeat => {
+		const seatIndex = seats.value.findIndex(seat => seat.id === reservedSeat);
+		if (seatIndex !== -1) {
+			seats.value[seatIndex].class = 'r';
+			seats.value[seatIndex].label = 'R';
 		}
-	}
+	});
+	// // Iterar sobre las propiedades del objeto reservedSeats
+	// for (const key in reservedSeats) {
+	// 	// Verificar si la propiedad pertenece directamente al objeto y no es heredada
+	// 	if (reservedSeats.hasOwnProperty(key)) {
+	// 		// Extraer el valor asociado a la propiedad actual
+	// 		const obj = reservedSeats[key];
+
+	// 		// Buscar el índice del asiento reservado en el array seats.value
+	// 		const seatIndex = seats.value.findIndex((seat) => seat.id.toString() === obj.seat);
+
+	// 		// Si se encuentra el índice del asiento en seats.value
+	// 		if (seatIndex !== -1) {
+	// 			// Marcar visualmente el asiento reservado actualizando sus propiedades class y label
+	// 			seats.value[seatIndex].class = 'r';   // Clase 'r' para indicar reservado
+	// 			seats.value[seatIndex].label = 'R';   // Etiqueta 'R' para indicar reservado
+	// 		}
+	// 	}
+	// }
+
 };
 
 
@@ -80,7 +98,7 @@ const seatSelectionProcess = (seat) => {
 	seat.selected = !seat.selected;
 };
 
-const SeatingComponent = (number) => makeRows(number, 'middle');
+const SeatingComponent = (number, array) => makeRows(number, array);
 
 defineExpose({ SeatingComponent });
 </script>

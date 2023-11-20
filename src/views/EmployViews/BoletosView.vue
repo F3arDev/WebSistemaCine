@@ -3,16 +3,7 @@
 		<h1 class="h2">Boletos</h1>
 	</div>
 	<div class="container-fluid">
-		<div class="row justify-content-start  g-2 align-items-start">
-			<div class="col-4">
-				<div class=" divCard">
-					<h5>boletos</h5>
-					<dtBoletos />
-					<div class="d-grid gap-2">
-						<button type="button" name="" id="" class="btn btn-primary">Generar Factura</button>
-					</div>
-				</div>
-			</div>
+		<div class="row justify-content-start align-items-start">
 			<div class="col">
 				<div class="row">
 					<div class="col-4 divCard">
@@ -27,10 +18,21 @@
 				</div>
 				<div class="row">
 					<div class="col divCard">
-						<dtCartelera @update="handelDtBoletos" @cartelera="handelCarteleras" />
+						<dtCartelera @update="handelDtBoletos" @cartelera="handelCarteleras"
+							@resAsientos="handelresAsientos" />
 					</div>
 				</div>
-
+			</div>
+		</div>
+		<div class="row justify-content-center align-items-center">
+			<div class="col divCard">
+				<div>
+					<h5>Boletos</h5>
+					<dtBoletos ref="dtBoletosFuncion" />
+					<div class="d-grid gap-2">
+						<button type="button" name="" id="" class="btn btn-primary">Generar Factura</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -47,28 +49,34 @@ import gridSalas from '../../components/employComponent/gridSalas.vue';
 import FacturaServices from '../../services/FacturaServices.js'
 const factServices = new FacturaServices();
 
+import BoletosServices from '../../services/BoletoServices.js'
+const boleServices = new BoletosServices();
+
 const helloRef = ref(null);
+const dtBoletosFuncion = ref(null)
+
 let facturaID = null;
 let numAsiento;
 let tipoCLiente;
 let carteleraID;
+
+let resAsientos = [];
 
 const loadBoleto = (async () => {
 	if (facturaID == null) {
 		let result = await factServices.crearFactura();
 		facturaID = result;
 	}
-	console.log(`
-	Cartelera: ${carteleraID}
-	tipoCliente: ${tipoCLiente}
-	Asiento: ${numAsiento}
-	idFactura: ${facturaID}
-	`)
+	let result = await boleServices.crearBoleto(tipoCLiente, carteleraID, facturaID, numAsiento);
+	await dtBoletosFuncion.value.dtUpdate(facturaID);
+	debugger
+	console.log(result)
 })
 
-const handelDtBoletos = (number) => {
+const handelDtBoletos = (number, resAsientos) => {
 	console.log(`Evento: ${number}`);
-	helloRef.value.SeatingComponent(number);
+	debugger
+	helloRef.value.SeatingComponent(number, resAsientos);
 };
 
 const handelCarteleras = (id) => {
@@ -86,6 +94,11 @@ const handelAsientos = (data) => {
 	console.log(`Asiento: ${numAsiento}`);
 };
 
+const handelresAsientos = (data) => {
+	resAsientos = data;
+	debugger
+	console.log(`Asiento: ${resAsientos}`);
+};
 </script>
 
 <style scoped></style>

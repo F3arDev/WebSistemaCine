@@ -6,55 +6,34 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import $ from 'jquery';
 
-import carteleraServices from '../../services/CarteleraServices';
-const cartService = new carteleraServices();
+import BoletoServices from '../../services/BoletoServices';
+const boleServices = new BoletoServices();
 
-import PeliculasServices from '../../services/PeliculasServices.js'
-const peliService = new PeliculasServices();
 let tblBoleto;
-let carteleras;
-let peliculas;
+let ListBoletoFactura = ref([]);
+
 onMounted(async () => {
-	//init JqueryFuntion
-	await cartService.fetchAll();
-	carteleras = await cartService.getCarteleras();
-
-	await peliService.fetchAll();
-	peliculas = await peliService.getpeliculas();
-
 	$(() => {
 		tblBoleto = $('#tblBoleto').DataTable({
-			// data: carteleras.value,
-			// columns: [
-			// 	{
-			// 		// Configuración de la columna para renderizar el título de la película
-			// 		data: 'peliculaID',
-			// 		title: 'Título',
-			// 		render: function (data, type, row) {
-			// 			// Verifica si peliculas.value es un objeto o un array
-			// 			if (Array.isArray(peliculas.value)) {
-			// 				// Caso: peliculas.value es un array
-			// 				var pelicula = peliculas.value.find(function (p) {
-			// 					return p.peliculaID === data;
-			// 				});
-			// 				// Retorna el título de la película
-			// 				return pelicula ? pelicula.titulo : '';
-			// 			} else {
-			// 				// Caso: peliculas.value es un objeto
-			// 				for (var key in peliculas.value) {
-			// 					if (peliculas.value[key].peliculaID === data) {
-			// 						return peliculas.value[key].titulo;
-			// 					}
-			// 				}
-			// 				return '';
-			// 			}
-			// 		},
-			// 	},
-			// 	{ data: 'salaID', title: 'Sala' },
-			// ],
+			data: ListBoletoFactura.value,
+			// {
+			// 	"boletoID": 3,
+			// 	"tipoClienteID": 3,
+			// 	"carteleraID": 1,
+			// 	"facturaID": 5,
+			// 	"numeroAsiento": 3,
+			// 	"precio": 20
+			// }
+			columns: [
+				{ data: 'boletoID', title: 'ID' },
+				{ data: 'tipoClienteID', title: 'Cliente' },
+				{ data: 'carteleraID', title: 'Cartelera' },
+				{ data: 'numeroAsiento', title: 'Asiento' },
+				{ data: 'precio', title: 'Precio' },
+			],
 			columnDefs: [
 				{ className: "dt-left", targets: "_all" },
 				{ width: '70%', targets: 0 }, // Primera columna
@@ -65,9 +44,8 @@ onMounted(async () => {
 			pageLength: 5,
 			ordering: false,
 			autoWidth: false,
-			searching:false,
-			select: true,
-			select: 'single'
+			searching: false,
+			bPaginate: false
 		});
 	})
 });
@@ -77,6 +55,14 @@ onUnmounted(() => {
 		tblBoleto.destroy();
 	}
 });
+const dtUpdate = (async (number) => {
+	await boleServices.fetchBoletoxFactID(number);
+	ListBoletoFactura = await boleServices.getboletosxFactID()
+	
+	tblBoleto.clear().rows.add(ListBoletoFactura.value).draw();
+	debugger
+	console.log(ListBoletoFactura.value)
+})
 
-
+defineExpose({ dtUpdate });
 </script>

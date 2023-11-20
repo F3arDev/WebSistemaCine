@@ -43,7 +43,7 @@ let tblCartelera;
 let carteleras;
 let peliculas;
 let salas;
-const emit = defineEmits(['update', 'cartelera']);
+const emit = defineEmits(['update', 'cartelera', 'resAsientos']);
 
 onMounted(async () => {
 	//init JqueryFuntion
@@ -52,10 +52,6 @@ onMounted(async () => {
 
 	await peliService.fetchAll();
 	peliculas = await peliService.getpeliculas();
-
-
-
-
 	$(() => {
 		tblCartelera = $('#tblCartelera').DataTable({
 			data: carteleras.value,
@@ -107,8 +103,10 @@ onMounted(async () => {
 			if (rowSelect == false) {
 				await Saervices.fetchSalaID(data.salaID);
 				salas = await Saervices.getsalas();
-				emit('update', salas.value.capacidadAsientos);
+				emit('resAsientos', data.asientosReservados)
+				emit('update', salas.value.capacidadAsientos, data.asientosReservados);
 				emit('cartelera', data.carteleraID);
+				debugger
 			} else {
 				console.log('La fila a sido deseleccionada')
 				emit('update', 0);
