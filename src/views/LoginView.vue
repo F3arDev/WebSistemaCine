@@ -30,12 +30,14 @@ const username = ref('');
 const password = ref('');
 const router = useRouter();
 
-const userRole = 'admin';
+
+
 const login = async () => {
+	const userRole = username.value;
 	if (userRole === 'admin') {
 		router.push('/admin');
-	} else if (userRole === 'user') {
-		router.push('/user');
+	} else if (userRole === 'employ') {
+		router.push('/employ');
 	} else {
 		// router.push('/access-denied');
 	}

@@ -28,7 +28,12 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<li><a class="dropdown-item">Cerrar Session</a></li>
+								<li>
+									<router-link to="/" class="dropdown-item">
+
+										Cerrar Sesion
+									</router-link>
+								</li>
 							</ul>
 						</div>
 						<hr>
