@@ -19,10 +19,10 @@ import FacturaServices from '../../services/FacturaServices.js'
 const FactServices = new FacturaServices();
 onMounted(async () => {
 	await FactServices.fetchAll();
-	tblfactura = await FactServices.getFacturas()
+	facturas = await FactServices.getFacturas()
 
 	$(() => {
-		tblCartelera = $('#dtFacturas').DataTable({
+		tblfactura = $('#dtFacturas').DataTable({
 			data: facturas.value,
 			columns: [
 				{ data: 'facturaID', title: 'Factura ID' },
