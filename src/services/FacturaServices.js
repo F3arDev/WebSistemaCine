@@ -10,7 +10,7 @@ class FacturaServices {
 		this.facturasXID = ref([])
 	}
 	getFacturas() {
-		return this.facturas
+		return this.factura
 	}
 	getFacturaID() {
 		return this.facturaID
@@ -20,7 +20,7 @@ class FacturaServices {
 	}
 	async fetchAll() {
 		try {
-			const url = 'http://sistemacine.somee.com/api/Cliente/ListarClientes';
+			const url = 'http://www.sistemacine.somee.com/api/Factura/ListarFactura';
 			const result = await fetch(url)
 			const json = await result.json();
 			this.factura.value = await json.response;

@@ -30,7 +30,13 @@
 					<h5>Boletos</h5>
 					<dtBoletos ref="dtBoletosFuncion" />
 					<div class="d-grid gap-2">
-						<button type="button" name="" id="" class="btn btn-primary">Generar Factura</button>
+						
+							<button @click="GenerarFactura" type="button" class="btn btn-primary">
+								<router-link to="/employ/home" class="nav-link">
+									Generar Factura
+								</router-link>
+								
+							</button>
 					</div>
 				</div>
 			</div>
@@ -40,7 +46,7 @@
 
 <script setup>
 import { ref } from 'vue';
-
+import { useRouter } from 'vue-router';
 import dtCartelera from '../../components/employComponent/dtCartelera.vue';
 import dtBoletos from '../../components/employComponent/dtBoletos.vue';
 import dropdownCliente from '../../components/employComponent/dropdownCliente.vue';
@@ -62,6 +68,11 @@ let carteleraID;
 
 let resAsientos = [];
 
+const GenerarFactura = (() => {
+	debugger
+	router.push('/employ/home');
+})
+
 const loadBoleto = (async () => {
 	if (facturaID == null) {
 		let result = await factServices.crearFactura();
@@ -74,7 +85,7 @@ const loadBoleto = (async () => {
 })
 
 const handelDtBoletos = (number, resAsientos) => {
-	console.log(`Evento: ${number}`);
+	console.log(`Evento: ${resAsientos}`);
 	debugger
 	helloRef.value.SeatingComponent(number, resAsientos);
 };
@@ -96,7 +107,8 @@ const handelAsientos = (data) => {
 
 const handelresAsientos = (data) => {
 	resAsientos = data;
-	debugger
+	// Ahora myArray es una referencia al Array almacenado en el Proxy
+
 	console.log(`Asiento: ${resAsientos}`);
 };
 </script>

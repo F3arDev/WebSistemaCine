@@ -1,6 +1,6 @@
 <template>
 	<div class="table-responsive">
-		<table id="tblCartelera" class="table table-striped">
+		<table id="tblPeliculas" class="table table-striped">
 			<!-- <thead>
 
 				<tr>
@@ -28,51 +28,47 @@
 <script setup>
 import $ from 'jquery';
 import { onMounted, onUnmounted } from 'vue';
-let tblCartelera;
+let tblPelicuas;
 
 let response = [
 	{
-		"carteleraID": 1,
-		"descripcion": "Descripcion de la Cartelera",
-		"peliculaID": 1,
-		"horarioID": 1,
 		"salaID": 1,
+		"numeroSala": 1,
+		"capacidadAsientos": 25
 	},
 	{
-		"carteleraID": 2,
-		"descripcion": "RyF10, 20 nov 23, Sala 2",
-		"peliculaID": 2,
-		"horarioID": 2,
 		"salaID": 2,
+		"numeroSala": 2,
+		"capacidadAsientos": 30
 	}
 ]
 
 onMounted(() => {
 	//init JqueryFuntion
 	$(() => {
-		tblCartelera = $('#tblCartelera').DataTable({
+		tblPelicuas = $('#tblPeliculas').DataTable({
 			data: response,
 			columns: [
-				{ data: 'carteleraID', title: 'Cartelera ID' },
-				{ data: 'descripcion', title: 'Descripción' },
-				{ data: 'peliculaID', title: 'Pelicula ID' },
-				{ data: 'horarioID', title: 'Horario ID' },
-				{ data: 'salaID', title: 'Sala ID' }
+				{ data: 'salaID', title: 'ID' },
+				{ data: 'numeroSala', title: 'No-Sala' },
+				{ data: 'capacidadAsientos', title: 'Capacidad Asientos' },
 			],
 			lengthChange: false,
 			pageLength: 5,
 			autoWidth: false,
 			bPaginate: false,
+
 			language: {
 				url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
 			},
 		});
 	})
 });
+
 onUnmounted(() => {
 	// Destruye la tabla cuando el componente se desmonta para evitar pérdidas de memoria
-	if (tblCartelera) {
-		tblCartelera.destroy();
+	if (tblPelicuas) {
+		tblPelicuas.destroy();
 	}
 });
 

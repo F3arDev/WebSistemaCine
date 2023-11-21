@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import $ from 'jquery';
 
 import carteleraServices from '../../services/CarteleraServices';
@@ -40,7 +40,7 @@ const Saervices = new SalaServices();
 
 
 let tblCartelera;
-let carteleras;
+let carteleras = ref([]);
 let peliculas;
 let salas;
 const emit = defineEmits(['update', 'cartelera', 'resAsientos']);
@@ -97,16 +97,18 @@ onMounted(async () => {
 		});
 		// Configura el evento de clic en la fila
 		$('#tblCartelera').on('click', 'tr', async function () {
-			let data = tblCartelera.row($(this).closest('tr')).data();
+			let data = await tblCartelera.row($(this).closest('tr')).data();
 			let rowSelect = tblCartelera.row({ selected: true }).index() === tblCartelera.row($(this).closest('tr')).index();
-			debugger
+
 			if (rowSelect == false) {
 				await Saervices.fetchSalaID(data.salaID);
 				salas = await Saervices.getsalas();
-				emit('resAsientos', data.asientosReservados)
-				emit('update', salas.value.capacidadAsientos, data.asientosReservados);
+				console.log(data.asientosReservados)
+				let item = JSON.stringify(data.asientosReservados)
+				emit('resAsientos', item)
+				emit('update', salas.value.capacidadAsientos, item);
 				emit('cartelera', data.carteleraID);
-				debugger
+
 			} else {
 				console.log('La fila a sido deseleccionada')
 				emit('update', 0);

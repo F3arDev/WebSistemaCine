@@ -1,6 +1,6 @@
 <template>
 	<div class="table-responsive">
-		<table id="tblCartelera" class="table table-striped">
+		<table id="tblPeliculas" class="table table-striped">
 			<!-- <thead>
 
 				<tr>
@@ -28,36 +28,42 @@
 <script setup>
 import $ from 'jquery';
 import { onMounted, onUnmounted } from 'vue';
-let tblCartelera;
+let tblPelicuas;
 
 let response = [
 	{
-		"carteleraID": 1,
-		"descripcion": "Descripcion de la Cartelera",
 		"peliculaID": 1,
-		"horarioID": 1,
-		"salaID": 1,
+		"duracionMinutos": 90,
+		"sinopsis": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla ac leo sed facilisis. Morbi suscipit non lacus vitae imperdiet.",
+		"titulo": "Alicia en el Pais de las Maravillas",
+		"genero": "Fantasia",
+		"clasificacion": "TP",
+		"tipo": "3D"
 	},
 	{
-		"carteleraID": 2,
-		"descripcion": "RyF10, 20 nov 23, Sala 2",
 		"peliculaID": 2,
-		"horarioID": 2,
-		"salaID": 2,
+		"duracionMinutos": 105,
+		"sinopsis": "sinopsis",
+		"titulo": "Rapidos y Furiosos 10",
+		"genero": "Accion",
+		"clasificacion": "TP-13",
+		"tipo": "2D"
 	}
 ]
 
 onMounted(() => {
 	//init JqueryFuntion
 	$(() => {
-		tblCartelera = $('#tblCartelera').DataTable({
+		tblPelicuas = $('#tblPeliculas').DataTable({
 			data: response,
 			columns: [
-				{ data: 'carteleraID', title: 'Cartelera ID' },
-				{ data: 'descripcion', title: 'Descripción' },
 				{ data: 'peliculaID', title: 'Pelicula ID' },
-				{ data: 'horarioID', title: 'Horario ID' },
-				{ data: 'salaID', title: 'Sala ID' }
+				{ data: 'duracionMinutos', title: 'Duración (minutos)' },
+				{ data: 'sinopsis', title: 'Sinopsis' },
+				{ data: 'titulo', title: 'Título' },
+				{ data: 'genero', title: 'Género' },
+				{ data: 'clasificacion', title: 'Clasificación' },
+				{ data: 'tipo', title: 'Tipo' }
 			],
 			lengthChange: false,
 			pageLength: 5,
@@ -69,10 +75,11 @@ onMounted(() => {
 		});
 	})
 });
+
 onUnmounted(() => {
 	// Destruye la tabla cuando el componente se desmonta para evitar pérdidas de memoria
-	if (tblCartelera) {
-		tblCartelera.destroy();
+	if (tblPelicuas) {
+		tblPelicuas.destroy();
 	}
 });
 

@@ -6,7 +6,6 @@
 					<i class="bi bi-person-circle mb-4"></i>
 					<h1 class="h3 mb-3 fw-normal">INICIAR SESION</h1>
 				</div>
-
 				<div class="form-floating">
 					<input v-model="username" type="text" class="form-control" id="inputUser" placeholder="Usuario">
 					<label for="floatingInput">Usuario</label>
@@ -14,6 +13,9 @@
 				<div class="form-floating">
 					<input v-model="password" type="password" class="form-control" id="inputPass" placeholder="Contraseña">
 					<label for="floatingPassword">Contraseña</label>
+				</div>
+				<div class="mb-3 text-left">
+					<a href="enlace_a_tu_pagina_de_olvido_de_contraseña">¿Olvidó su contraseña?</a>
 				</div>
 				<button @click="login()" class="btn btn-primary w-100 py-2" type="submit">Ingresar</button>
 			</form>
