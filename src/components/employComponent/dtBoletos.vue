@@ -45,7 +45,7 @@ onMounted(async () => {
 			ordering: false,
 			autoWidth: false,
 			searching: false,
-			bPaginate: false
+			bPaginate: false,
 		});
 	})
 });

@@ -60,7 +60,6 @@ class FacturaServices {
 			const url = `http://www.sistemacine.somee.com/api/Factura/ObtenerFactura/${id}`;
 			const result = await fetch(url)
 			const json = await result.json();
-			debugger
 			this.facturasXID.value = await json.response;
 		} catch (error) {
 			console.log(error)
