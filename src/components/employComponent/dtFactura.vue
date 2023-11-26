@@ -7,16 +7,23 @@
 
 
 	<div style="display: none;">
-		<div class="table-responsive">
-			<table id="dtBoletosFactura" class="table table-striped">
+		<div id="dtbolFactura">
+			<div class="table-responsive">
+				<table id="dtBoletosFactura" class="table table-striped">
 
-			</table>
+				</table>
+			</div>
+			<div>
+				<h4>Total: {{ totalBoletos }}</h4>
+			</div>
 		</div>
+
+
 	</div>
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import $ from 'jquery';
 
 import alertify from 'alertifyjs'
@@ -31,7 +38,7 @@ const FactServices = new FacturaServices();
 import BoletoServices from '../../services/BoletoServices';
 const boleServices = new BoletoServices();
 
-
+let totalBoletos = ref()
 
 onMounted(async () => {
 	await FactServices.fetchAll();
@@ -63,15 +70,12 @@ onMounted(async () => {
 		tblfactura.on('click', 'tr', async function () {
 			let data = tblfactura.row($(this).closest('tr')).data();
 			let rowSelect = tblfactura.row({ selected: true }).index() === tblfactura.row($(this).closest('tr')).index();
-			debugger
 
 			if (rowSelect == false) {
 				await boleServices.fetchBoletoxFactID(data.facturaID);
 				let ListBoletoFactura = await boleServices.getboletosxFactID()
-				debugger
 
-				debugger
-				let tdBoletos = $('#dtBoletosFactura')[0];
+				let tdBoletos = $('#dtbolFactura')[0];
 				alertify.alert('')
 					.setHeader('<div style="text-align: center; font-size: 1.2em; font-weight: bold">Boletos de la Factura</div>')
 					.set('closable', false)
@@ -79,7 +83,6 @@ onMounted(async () => {
 					.resizeTo('70%', '55%')
 					.setContent(tdBoletos)
 					.set({ onclose: function () { tblfacturaBoleto.destroy() } });
-				debugger
 
 				let tblfacturaBoleto = $('#dtBoletosFactura').DataTable({
 					data: ListBoletoFactura.value,
@@ -102,6 +105,9 @@ onMounted(async () => {
 					searching: false,
 					ordering: false,
 				});
+				
+				totalBoletos.value = data.total
+
 			} else {
 				console.log('La fila a sido deseleccionada')
 				emit('update', 0);
@@ -110,6 +116,7 @@ onMounted(async () => {
 
 	})
 });
+
 
 onUnmounted(() => {
 	// Destruye la tabla cuando el componente se desmonta para evitar pérdidas de memoria

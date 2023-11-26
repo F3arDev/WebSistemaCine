@@ -1,4 +1,5 @@
 <template>
+	<h5>Carteleras</h5>
 	<div class="table-responsive">
 		<table id="tblCartelera" class="table table-striped">
 			<!-- <thead>
@@ -15,7 +16,7 @@
 					<td>Item222</td>
 					<td>Item333</td>
 				</tr>
-				<tr>
+				<tr></tr>
 					<td>Item55</td>
 					<td>Item66</td>
 					<td>Item77</td>
@@ -26,49 +27,63 @@
 </template>
 
 <script setup>
+import { onMounted, onUnmounted, ref } from 'vue';
 import $ from 'jquery';
-import { onMounted, onUnmounted } from 'vue';
+
+import carteleraServices from '../../../services/CarteleraServices.js';
+const cartService = new carteleraServices();
+
+
 let tblCartelera;
+let carteleras = ref([]);
+let peliculas;
+let salas;
+const emit = defineEmits(['update', 'cartelera', 'resAsientos']);
 
-let response = [
-	{
-		"carteleraID": 1,
-		"descripcion": "Descripcion de la Cartelera",
-		"peliculaID": 1,
-		"horarioID": 1,
-		"salaID": 1,
-	},
-	{
-		"carteleraID": 2,
-		"descripcion": "RyF10, 20 nov 23, Sala 2",
-		"peliculaID": 2,
-		"horarioID": 2,
-		"salaID": 2,
-	}
-]
-
-onMounted(() => {
+onMounted(async () => {
 	//init JqueryFuntion
+	await cartService.fetchAll();
+	carteleras = await cartService.getCarteleras();
 	$(() => {
 		tblCartelera = $('#tblCartelera').DataTable({
-			data: response,
+			data: carteleras.value,
 			columns: [
-				{ data: 'carteleraID', title: 'Cartelera ID' },
-				{ data: 'descripcion', title: 'Descripción' },
-				{ data: 'peliculaID', title: 'Pelicula ID' },
-				{ data: 'horarioID', title: 'Horario ID' },
-				{ data: 'salaID', title: 'Sala ID' }
+				{ data: 'carteleraID', title: 'ID', },
+				{ data: 'titulo_Pelicula', title: 'Titulo' },
+				{ data: 'fecha', title: 'Fecha' },
+				{ data: 'horaInicio', title: 'Hora Inicio' },
+				{ data: 'horaFin', title: 'Hora Fin' },
+				{ data: 'numeroSala', title: 'No.Sala' },
+			],
+			columnDefs: [
+				{ className: "dt-left", targets: "_all" },
+				// { width: '70%', targets: 0 }, // Primera columna
+				// { width: '30%', targets: 1 }  // Segunda columna
 			],
 			lengthChange: false,
+			info: false,
 			pageLength: 5,
+			ordering: false,
 			autoWidth: false,
-			bPaginate: false,
-			language: {
-				url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-			},
+			select: true,
+			select: 'single'
 		});
+		// Configura el evento de clic en la fila
+		$('#tblCartelera').on('click', 'tr', async function () {
+			let data = await tblCartelera.row($(this).closest('tr')).data();
+			let rowSelect = tblCartelera.row({ selected: true }).index() === tblCartelera.row($(this).closest('tr')).index();
+			debugger
+			if (rowSelect == false) {
+				emit('cartelera', data);
+			} else {
+				console.log('La fila a sido deseleccionada')
+				emit('cartelera', 0);
+			}
+		});
+
 	})
 });
+
 onUnmounted(() => {
 	// Destruye la tabla cuando el componente se desmonta para evitar pérdidas de memoria
 	if (tblCartelera) {

@@ -3,6 +3,10 @@
 		<table id="tblBoleto" class="table table-striped">
 		</table>
 	</div>
+
+	<div>
+		<h4>Total: {{ totalBoletos }}</h4>
+	</div>
 </template>
 
 <script setup>
@@ -14,6 +18,7 @@ const boleServices = new BoletoServices();
 
 let tblBoleto;
 let ListBoletoFactura = ref([]);
+let totalBoletos = ref();
 
 onMounted(async () => {
 	$(() => {
@@ -29,23 +34,22 @@ onMounted(async () => {
 			// }
 			columns: [
 				{ data: 'boletoID', title: 'ID' },
-				{ data: 'tipoClienteID', title: 'Cliente' },
-				{ data: 'carteleraID', title: 'Cartelera' },
-				{ data: 'numeroAsiento', title: 'Asiento' },
-				{ data: 'precio', title: 'Precio' },
-			],
-			columnDefs: [
-				{ className: "dt-left", targets: "_all" },
-				{ width: '70%', targets: 0 }, // Primera columna
-				{ width: '30%', targets: 1 }  // Segunda columna
+				{ data: 'tituloPelicula', title: 'Pelicula' },
+				{ data: 'fecha', title: 'Fecha' },
+				{ data: 'horaInicio', title: 'Hora de Inicio' },
+				{ data: 'numeroSala', title: 'No.Sala' },
+				{ data: 'numeroAsiento', title: 'No.Asiento' },
+				{ data: 'precio', title: 'Pecio' }
 			],
 			lengthChange: false,
 			info: false,
 			pageLength: 5,
-			ordering: false,
+			ordering: true,
+			order: [[0, 'desc']],
 			autoWidth: false,
-			searching: false,
 			bPaginate: false,
+			searching: false,
+			ordering: false,
 		});
 	})
 });
@@ -58,11 +62,17 @@ onUnmounted(() => {
 const dtUpdate = (async (number) => {
 	await boleServices.fetchBoletoxFactID(number);
 	ListBoletoFactura = await boleServices.getboletosxFactID()
-	
 	tblBoleto.clear().rows.add(ListBoletoFactura.value).draw();
-	debugger
+	calcularSumaPrecios();
 	console.log(ListBoletoFactura.value)
 })
 
+function calcularSumaPrecios() {
+	totalBoletos.value = tblBoleto.column(6).data().reduce(function (a, b) {
+		return a + b;
+	}, 0);
+
+	console.log('La suma total de precios es: ' + totalBoletos);
+}
 defineExpose({ dtUpdate });
 </script>
