@@ -92,11 +92,12 @@ const ActualizarHorario = (async () => {
 		.set({
 			labels: { "ok": "SI", "cancel": "NO" },
 			onok: async function () {
-				let id = data.salaID;
-				let resutl = await salServices.ActualizarSala(
+				let id = data.horarioID;
+				let resutl = await horariServices.ActualizarHorario(
 					id,
-					vnumSala.value,
-					vcapAsientos.value,
+					vfecha.value,
+					vHoraInicio.value,
+					vHoraFin.value
 				);
 				if (!resutl) {
 					alertify.error('Error al Crearla');
@@ -107,8 +108,9 @@ const ActualizarHorario = (async () => {
 				alertify.success('Creada Correctamente');
 			}
 		})
-	vnumSala.value = data.numeroSala
-	vcapAsientos.value = data.capacidadAsientos
+	vfecha.value = data.fecha
+	vHoraInicio.value = data.horaInicio
+	vHoraFin.value = data.horaFin
 })
 
 const DesabilitarHorario = (() => {
@@ -123,8 +125,8 @@ const DesabilitarHorario = (() => {
 		.set({
 			labels: { "ok": "SI", "cancel": "NO" },
 			onok: async function () {
-				let id = data.salaID;
-				let resutl = await salServices.EliminarSala(id);
+				let id = data.horarioID;
+				let resutl = await horariServices.EliminarHorario(id);
 				if (!resutl) {
 					alertify.error('Error al Desabilitarla');
 				}

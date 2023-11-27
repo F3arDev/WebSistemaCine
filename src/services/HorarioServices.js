@@ -26,6 +26,7 @@ class HorarioServices {
 			"horaInicio": y,
 			"horaFin": z
 		}
+		debugger
 		try {
 			const url = 'http://www.sistemacine.somee.com/api/Horario/GuardarHorario';
 			const result = await fetch(url, {
