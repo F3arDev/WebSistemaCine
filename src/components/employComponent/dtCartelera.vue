@@ -105,5 +105,14 @@ onUnmounted(() => {
 	}
 });
 
+const dtUpdate = (async () => {
+	debugger
+	await cartService.fetchAll();
+	carteleras = await cartService.getCarteleras();
+	tblCartelera.clear().rows.add(carteleras.value).draw();
+})
+
+defineExpose({ dtUpdate });
+
 
 </script>

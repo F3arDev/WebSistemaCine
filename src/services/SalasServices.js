@@ -29,5 +29,83 @@ class SalasServices {
 			console.log(error)
 		}
 	}
+
+	async crearSala(x, y) {
+		const SalaData = {
+			"numeroSala": x,
+			"capacidadAsientos": y
+		}
+		debugger
+		try {
+			const url = 'http://www.sistemacine.somee.com/api/Sala/GuardarSala';
+			const result = await fetch(url, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+					// Puedes agregar más encabezados según sea necesario
+				},
+				body: JSON.stringify(SalaData)
+			});
+			const json = await result.json();
+			return true
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	async EliminarSala(x) {
+		try {
+			const url = `http://www.sistemacine.somee.com/api/Sala/EliminaSala/${x}`;
+			const result = await fetch(url, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+					// Puedes agregar más encabezados según sea necesario
+				}
+			});
+			debugger
+			if (result.ok) {
+				const json = await result.json();
+				console.log('Eliminación exitosa:', json);
+				return true;
+			} else {
+				console.log('Error en la eliminación. Código de estado:', result.status);
+				// Puedes agregar más lógica según el código de estado, si es necesario
+				return false;
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	async ActualizarSala(x, y, z) {
+		try {
+			const url = `http://www.sistemacine.somee.com/api/Sala/ActualizarSala/${x}`;
+			const result = await fetch(url, {
+				method: 'PUT', // Cambiado a PUT
+				headers: {
+					'Content-Type': 'application/json'
+					// Puedes agregar más encabezados según sea necesario
+				},
+				body: JSON.stringify({
+					"numeroSala": y,
+					"capacidadAsientos": z
+				}) // Ajusta según tus necesidades
+			});
+			// Verificar el código de estado
+			if (result.ok) {
+				const json = await result.json();
+				console.log('Actualización exitosa:', json);
+				return true;
+			} else {
+				console.log('Error en la actualización. Código de estado:', result.status);
+				// Puedes agregar más lógica según el código de estado, si es necesario
+				return false;
+			}
+		} catch (error) {
+			console.error('Error en la función ActualizarCartelera:', error);
+			return false;
+		}
+	}
 }
 export default SalasServices;

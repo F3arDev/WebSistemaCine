@@ -30,13 +30,13 @@
 					<h5>Boletos</h5>
 					<dtBoletos ref="dtBoletosFuncion" />
 					<div class="d-grid gap-2">
-						
-							<button @click="GenerarFactura" type="button" class="btn btn-primary">
-								<router-link to="/employ/home" class="nav-link">
-									Generar Factura
-								</router-link>
-								
-							</button>
+
+						<button @click="GenerarFactura" type="button" class="btn btn-primary">
+							<router-link to="/employ/home" class="nav-link">
+								Generar Factura
+							</router-link>
+
+						</button>
 					</div>
 				</div>
 			</div>
@@ -108,7 +108,6 @@ const handelAsientos = (data) => {
 const handelresAsientos = (data) => {
 	resAsientos = data;
 	// Ahora myArray es una referencia al Array almacenado en el Proxy
-
 	console.log(`Asiento: ${resAsientos}`);
 };
 </script>

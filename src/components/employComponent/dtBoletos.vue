@@ -71,7 +71,6 @@ function calcularSumaPrecios() {
 	totalBoletos.value = tblBoleto.column(6).data().reduce(function (a, b) {
 		return a + b;
 	}, 0);
-
 	console.log('La suma total de precios es: ' + totalBoletos);
 }
 defineExpose({ dtUpdate });

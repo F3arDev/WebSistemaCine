@@ -67,6 +67,13 @@
 									Salas de Cine
 								</router-link>
 							</li>
+							<li class="nav-item" role="presentation">
+								<router-link to="/admin/horarios" class="nav-link"
+									:class="{ 'active': isRouteActive('/admin/horarios') }">
+									<i class="bi bi-file-earmark-text mx-1"></i>
+									Horarios
+								</router-link>
+							</li>
 						</ul>
 						<hr>
 					</div>

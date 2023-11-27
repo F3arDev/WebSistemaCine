@@ -50,9 +50,7 @@ onMounted(async () => {
 			columns: [
 				{ data: 'facturaID', title: 'Factura ID' },
 				{ data: 'fecha', title: 'Fecha' },
-				{ data: 'total', title: 'Total' },
-				{ data: 'usuarioID', title: 'Usuario ID' },
-				{ data: 'clienteID', title: 'Cliente ID' },
+				{ data: 'total', title: 'Total' }
 			],
 			lengthChange: false,
 			info: false,

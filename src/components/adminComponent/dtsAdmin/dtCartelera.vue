@@ -2,26 +2,6 @@
 	<h5>Carteleras</h5>
 	<div class="table-responsive">
 		<table id="tblCartelera" class="table table-striped">
-			<!-- <thead>
-
-				<tr>
-					<th>Column 1</th>
-					<th>Column 2</th>
-					<th>Column 3</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Item111</td>
-					<td>Item222</td>
-					<td>Item333</td>
-				</tr>
-				<tr></tr>
-					<td>Item55</td>
-					<td>Item66</td>
-					<td>Item77</td>
-				</tr>
-			</tbody> -->
 		</table>
 	</div>
 </template>
@@ -82,7 +62,14 @@ onMounted(async () => {
 		});
 
 	})
+
+
+
 });
+
+
+
+
 
 onUnmounted(() => {
 	// Destruye la tabla cuando el componente se desmonta para evitar pérdidas de memoria

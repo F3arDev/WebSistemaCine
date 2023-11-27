@@ -1,26 +1,6 @@
 <template>
 	<div class="table-responsive">
-		<table id="tblPeliculas" class="table table-striped">
-			<!-- <thead>
-
-				<tr>
-					<th>Column 1</th>
-					<th>Column 2</th>
-					<th>Column 3</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Item111</td>
-					<td>Item222</td>
-					<td>Item333</td>
-				</tr>
-				<tr>
-					<td>Item55</td>
-					<td>Item66</td>
-					<td>Item77</td>
-				</tr>
-			</tbody> -->
+		<table id="tblSalas" class="table table-striped">
 		</table>
 	</div>
 </template>
@@ -28,49 +8,61 @@
 <script setup>
 import $ from 'jquery';
 import { onMounted, onUnmounted } from 'vue';
-let tblPelicuas;
 
-let response = [
-	{
-		"salaID": 1,
-		"numeroSala": 1,
-		"capacidadAsientos": 25
-	},
-	{
-		"salaID": 2,
-		"numeroSala": 2,
-		"capacidadAsientos": 30
-	}
-]
+import salasServices from '../../../services/SalasServices.js'
 
-onMounted(() => {
-	//init JqueryFuntion
+const salServices = new salasServices()
+
+const emit = defineEmits(['upData']);
+
+let tblSalas;
+onMounted(async () => {
+	await salServices.fetchAll();
+	let listSalas = await salServices.getsalas();
 	$(() => {
-		tblPelicuas = $('#tblPeliculas').DataTable({
-			data: response,
+		tblSalas = $('#tblSalas').DataTable({
+			data: listSalas.value,
 			columns: [
 				{ data: 'salaID', title: 'ID' },
-				{ data: 'numeroSala', title: 'No-Sala' },
-				{ data: 'capacidadAsientos', title: 'Capacidad Asientos' },
+				{ data: 'numeroSala', title: 'No.Sala' },
+				{ data: 'capacidadAsientos', title: 'Capacidad de Asientos' },
 			],
 			lengthChange: false,
+			info: false,
 			pageLength: 5,
+			ordering: true,
+			order: [[0, 'desc']],
 			autoWidth: false,
 			bPaginate: false,
-
-			language: {
-				url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-			},
+			searching: false,
+			ordering: false,
+			select: true,
+			select: 'single'
 		});
+		tblSalas.on('click', 'tr', async function () {
+			let data = tblSalas.row($(this).closest('tr')).data();
+			debugger
+			let rowSelect = tblSalas.row({ selected: true }).index() === tblSalas.row($(this).closest('tr')).index();
+			if (rowSelect == false) {
+				let item = data;
+				emit('upData', item);
+			}
+		})
 	})
 });
 
 onUnmounted(() => {
 	// Destruye la tabla cuando el componente se desmonta para evitar pérdidas de memoria
-	if (tblPelicuas) {
-		tblPelicuas.destroy();
+	if (tblSalas) {
+		tblSalas.destroy();
 	}
 });
 
+const dtUpdate = (async () => {
+	await salServices.fetchAll();
+	let listSalas = await salServices.getsalas();
+	tblSalas.clear().rows.add(listSalas.value).draw();
+})
 
+defineExpose({ dtUpdate });
 </script>

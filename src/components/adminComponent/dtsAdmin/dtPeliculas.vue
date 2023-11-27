@@ -1,87 +1,76 @@
 <template>
 	<div class="table-responsive">
-		<table id="tblPeliculas" class="table table-striped">
-			<!-- <thead>
-
-				<tr>
-					<th>Column 1</th>
-					<th>Column 2</th>
-					<th>Column 3</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Item111</td>
-					<td>Item222</td>
-					<td>Item333</td>
-				</tr>
-				<tr>
-					<td>Item55</td>
-					<td>Item66</td>
-					<td>Item77</td>
-				</tr>
-			</tbody> -->
+		<table id="tblPelicula" class="table table-striped">
 		</table>
 	</div>
 </template>
 
 <script setup>
-import $ from 'jquery';
+import $ from 'jquery'
 import { onMounted, onUnmounted } from 'vue';
-let tblPelicuas;
 
-let response = [
-	{
-		"peliculaID": 1,
-		"duracionMinutos": 90,
-		"sinopsis": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla ac leo sed facilisis. Morbi suscipit non lacus vitae imperdiet.",
-		"titulo": "Alicia en el Pais de las Maravillas",
-		"genero": "Fantasia",
-		"clasificacion": "TP",
-		"tipo": "3D"
-	},
-	{
-		"peliculaID": 2,
-		"duracionMinutos": 105,
-		"sinopsis": "sinopsis",
-		"titulo": "Rapidos y Furiosos 10",
-		"genero": "Accion",
-		"clasificacion": "TP-13",
-		"tipo": "2D"
-	}
-]
+import PeliculaServices from '@/services/PeliculasServices';
+const PeliServices = new PeliculaServices();
+let tblPelicula;
 
-onMounted(() => {
+
+const emit = defineEmits(['upData']);
+
+
+onMounted(async () => {
 	//init JqueryFuntion
+	await PeliServices.fetchAll();
+	let listPeliculas = await PeliServices.getpeliculas();
 	$(() => {
-		tblPelicuas = $('#tblPeliculas').DataTable({
-			data: response,
+		tblPelicula = $('#tblPelicula').DataTable({
+			data: listPeliculas.value,
 			columns: [
-				{ data: 'peliculaID', title: 'Pelicula ID' },
-				{ data: 'duracionMinutos', title: 'Duración (minutos)' },
-				{ data: 'sinopsis', title: 'Sinopsis' },
-				{ data: 'titulo', title: 'Título' },
-				{ data: 'genero', title: 'Género' },
-				{ data: 'clasificacion', title: 'Clasificación' },
-				{ data: 'tipo', title: 'Tipo' }
+				{ data: 'peliculaID', title: 'ID' },
+				{ data: 'titulo', title: 'Titulo' },
+				{ data: 'genero', title: 'Genero' },
+				{ data: 'duracionMinutos', title: 'Duracion' },
+				{ data: 'clasificacion', title: 'Clasificacion' },
+				{ data: 'tipo', title: 'Tipo' },
+				{ data: 'sinopsis', title: 'Sinopsis' }
 			],
 			lengthChange: false,
+			info: false,
 			pageLength: 5,
+			ordering: true,
+			order: [[0, 'desc']],
 			autoWidth: false,
 			bPaginate: false,
-			language: {
-				url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-			},
+			searching: false,
+			ordering: false,
+			select: true,
+			select: 'single'
 		});
+
+		tblPelicula.on('click', 'tr', async function () {
+			let data = tblPelicula.row($(this).closest('tr')).data();
+			debugger
+			let rowSelect = tblPelicula.row({ selected: true }).index() === tblPelicula.row($(this).closest('tr')).index();
+			if (rowSelect == false) {
+				let item = data
+				emit('upData', item);
+			}
+		})
 	})
 });
 
 onUnmounted(() => {
 	// Destruye la tabla cuando el componente se desmonta para evitar pérdidas de memoria
-	if (tblPelicuas) {
-		tblPelicuas.destroy();
+	if (tblPelicula) {
+		tblPelicula.destroy();
 	}
 });
 
+const dtUpdate = (async () => {
+	await PeliServices.fetchAll();
+	let listPeliculas = await PeliServices.getpeliculas();
+	tblPelicula.clear().rows.add(listPeliculas.value).draw();
+})
+
+defineExpose({ dtUpdate });
 
 </script>

@@ -1,42 +1,40 @@
-import { ref } from 'vue'
+import { ref } from "vue";
 
-class carteleraServices {
-	cartelera;
+class HorarioServices {
+	Horarios;
+
 	constructor() {
-		this.cartelera = ref([])
+		this.Horarios = ref([])
 	}
-	getCarteleras() {
-		return this.cartelera
+	getHoriarios() {
+		return this.Horarios
 	}
 	async fetchAll() {
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Cartelera/ListarCartelera';
+			const url = 'http://www.sistemacine.somee.com/api/Horario/ListarHorario';
 			const result = await fetch(url)
 			const json = await result.json();
-
-			this.cartelera.value = await json.carteleras;
-			console.log(this.cartelera.value)
+			debugger
+			this.Horarios.value = await json.response;
 		} catch (error) {
 			console.log(error)
 		}
 	}
-
-	async crearCartelera(x, y, z, w) {
-		const carteleraData = {
-			"descripcion": x,
-			"peliculaID": y,
-			"horarioID": z,
-			"salaID": w
+	async crearHorario(x, y, z) {
+		const HorarioData = {
+			"fecha": x,
+			"horaInicio": y,
+			"horaFin": z
 		}
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Cartelera/GuardarCartelera';
+			const url = 'http://www.sistemacine.somee.com/api/Horario/GuardarHorario';
 			const result = await fetch(url, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 					// Puedes agregar más encabezados según sea necesario
 				},
-				body: JSON.stringify(carteleraData)
+				body: JSON.stringify(HorarioData)
 			});
 			const json = await result.json();
 			return true
@@ -44,10 +42,9 @@ class carteleraServices {
 			console.log(error)
 		}
 	}
-
-	async EliminarCartelera(x) {
+	async EliminarHorario(x) {
 		try {
-			const url = `http://www.sistemacine.somee.com/api/Cartelera/EliminaCartelera/${x}`;
+			const url = `http://www.sistemacine.somee.com/api/Horario/EliminaHorario/${x}`;
 			const result = await fetch(url, {
 				method: 'DELETE',
 				headers: {
@@ -69,10 +66,9 @@ class carteleraServices {
 			console.log(error)
 		}
 	}
-
-	async ActualizarCartelera(x, y, z, w, j) {
+	async ActualizarHorario(x, y, z, w) {
 		try {
-			const url = `http://www.sistemacine.somee.com/api/Cartelera/ActualizarCartelera/${x}`;
+			const url = `http://www.sistemacine.somee.com/api/Horario/ActualizarHorario/${x}`;
 			const result = await fetch(url, {
 				method: 'PUT', // Cambiado a PUT
 				headers: {
@@ -80,10 +76,9 @@ class carteleraServices {
 					// Puedes agregar más encabezados según sea necesario
 				},
 				body: JSON.stringify({
-					"descripcion": y,
-					"peliculaID": z,
-					"horarioID": w,
-					"salaID": j
+					"fecha": y,
+					"horaInicio": z,
+					"horaFin": w
 				}) // Ajusta según tus necesidades
 			});
 			// Verificar el código de estado
@@ -101,17 +96,8 @@ class carteleraServices {
 			return false;
 		}
 	}
-
-	async fetchCarterleraID(x) {
-		try {
-			const url = `http://www.sistemacine.somee.com/api/Cartelera/ObtenerCartelera/${x}`;
-			const result = await fetch(url)
-			const json = await result.json();
-			let data = await json.response;
-			return data
-		} catch (error) {
-			console.log(error)
-		}
-	}
 }
-export default carteleraServices;
+
+
+
+export default HorarioServices;

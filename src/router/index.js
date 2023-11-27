@@ -8,7 +8,7 @@ import adminhomeView from '../views/AdminViews/HomeView.vue'
 import adminCartelerasView from '../views/AdminViews/CartelerasView.vue'
 import adminPeliculas from '../views/AdminViews/PeliculasView.vue'
 import adminSalaCine from '../views/AdminViews/SalaCine.vue'
-
+import adminhorarios from '../views/AdminViews/HorariosView.vue'
 
 
 
@@ -36,7 +36,8 @@ const router = createRouter({
         { path: 'home', name: 'AdminHome', component: adminhomeView },
         { path: 'carteleras', name: 'AdminCarteleras', component: adminCartelerasView },
         { path: 'peliculas', name: 'AdminPeliculas', component: adminPeliculas },
-        { path: 'salaCine', name: 'AdminSalaCine', component: adminSalaCine }
+        { path: 'salaCine', name: 'AdminSalaCine', component: adminSalaCine },
+        { path: 'horarios', name: 'Adminhorarios', component: adminhorarios }
       ]
       // meta: { requiresAuth: true, roles: ['Administrador'] }
     },
