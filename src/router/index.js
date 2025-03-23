@@ -1,62 +1,58 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Login from '@/views/LoginView.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import Login from "@/views/LoginView.vue";
 
+import HomeAdmin from "../views/AdminViews/Home.vue";
 
-import HomeAdmin from '../views/AdminViews/Home.vue'
+import adminhomeView from "../views/AdminViews/HomeView.vue";
+import adminCartelerasView from "../views/AdminViews/CartelerasView.vue";
+import adminPeliculas from "../views/AdminViews/PeliculasView.vue";
+import adminSalaCine from "../views/AdminViews/SalaCine.vue";
+import adminhorarios from "../views/AdminViews/HorariosView.vue";
 
-import adminhomeView from '../views/AdminViews/HomeView.vue'
-import adminCartelerasView from '../views/AdminViews/CartelerasView.vue'
-import adminPeliculas from '../views/AdminViews/PeliculasView.vue'
-import adminSalaCine from '../views/AdminViews/SalaCine.vue'
-import adminhorarios from '../views/AdminViews/HorariosView.vue'
-
-
-
-import HomeEmploy from '../views/EmployViews/Home.vue'
-import HomeEmployView from '../views/EmployViews/HomeEmployView.vue'
-import employBoletosView from '../views/EmployViews/BoletosView.vue'
-
+import HomeEmploy from "../views/EmployViews/Home.vue";
+import HomeEmployView from "../views/EmployViews/HomeEmployView.vue";
+import employBoletosView from "../views/EmployViews/BoletosView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     //Login path
     {
-      path: '/',
-      name: 'login',
-      component: Login
+      path: "/",
+      name: "login",
+      component: Login,
     },
     //admin path
     {
-      path: '/admin',
-      name: 'admin',
+      path: "/admin",
+      name: "admin",
       component: HomeAdmin,
-      redirect: '/admin/home',
+      redirect: "/admin/home",
       children: [
-        { path: 'home', name: 'AdminHome', component: adminhomeView },
-        { path: 'carteleras', name: 'AdminCarteleras', component: adminCartelerasView },
-        { path: 'peliculas', name: 'AdminPeliculas', component: adminPeliculas },
-        { path: 'salaCine', name: 'AdminSalaCine', component: adminSalaCine },
-        { path: 'horarios', name: 'Adminhorarios', component: adminhorarios }
-      ]
+        { path: "home", name: "AdminHome", component: adminhomeView },
+        { path: "carteleras", name: "AdminCarteleras", component: adminCartelerasView },
+        { path: "peliculas", name: "AdminPeliculas", component: adminPeliculas },
+        { path: "salaCine", name: "AdminSalaCine", component: adminSalaCine },
+        { path: "horarios", name: "Adminhorarios", component: adminhorarios },
+      ],
       // meta: { requiresAuth: true, roles: ['Administrador'] }
     },
     //employs path
     {
-      path: '/employ',
-      name: 'employ',
+      path: "/employ",
+      name: "employ",
       component: HomeEmploy,
-      redirect: '/employ/home',
+      redirect: "/employ/home",
       children: [
-        { path: 'home', name: 'Employhome', component: HomeEmployView },
-        { path: 'boletos', name: 'EmployBoletos', component: employBoletosView }
-      ]
+        { path: "home", name: "Employhome", component: HomeEmployView },
+        { path: "boletos", name: "EmployBoletos", component: employBoletosView },
+      ],
       // meta: { requiresAuth: true, roles: ['Administrador'] }
-    }
-  ]
-})
+    },
+  ],
+});
 
-export default router
+export default router;
 
 router.beforeEach((to, from, next) => {
   // Verifica si la ruta requiere autenticación
@@ -74,11 +70,11 @@ router.beforeEach((to, from, next) => {
         next();
       } else {
         // El usuario no tiene el rol necesario, redirige a una página de acceso denegado
-        next('/access-denied');
+        next("/access-denied");
       }
     } else {
       // El usuario no tiene un token válido, redirige a la página de inicio de sesión
-      next('/login');
+      next("/login");
     }
   } else {
     // La ruta no requiere autenticación, permite el acceso
