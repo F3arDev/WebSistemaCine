@@ -44,7 +44,7 @@ onMounted(async () => {
 
 	tblHorario.on('click', 'tr', async function () {
 		let data = tblHorario.row($(this).closest('tr')).data();
-		debugger
+		
 		let rowSelect = tblHorario.row({ selected: true }).index() === tblHorario.row($(this).closest('tr')).index();
 		if (rowSelect == false) {
 			let item = data

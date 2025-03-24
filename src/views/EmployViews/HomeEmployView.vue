@@ -9,9 +9,9 @@
     </div>
     <div class="col divCard">
       <h5>Facturas</h5>
-      <button type="button" class="btn btn-primary m-2">Generar Reporte de Ingresos</button>
+      <!-- <button type="button" class="btn btn-primary m-2">Generar Reporte de Ingresos</button>
       <button type="button" class="btn btn-secondary m-2">Generar Reporte de transaccion</button>
-      <button type="button" class="btn btn-info m-2">Generar Reporte de Estadisticas</button>
+      <button type="button" class="btn btn-info m-2">Generar Reporte de Estadisticas</button> -->
       <dtFactura />
     </div>
   </div>

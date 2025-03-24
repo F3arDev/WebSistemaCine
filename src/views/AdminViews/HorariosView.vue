@@ -137,7 +137,7 @@ const DesabilitarHorario = (() => {
 })
 
 const getData = (x) => {
-	debugger
+	
 	data = x
 }
 

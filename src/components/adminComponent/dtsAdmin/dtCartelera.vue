@@ -52,7 +52,7 @@ onMounted(async () => {
 		$('#tblCartelera').on('click', 'tr', async function () {
 			let data = await tblCartelera.row($(this).closest('tr')).data();
 			let rowSelect = tblCartelera.row({ selected: true }).index() === tblCartelera.row($(this).closest('tr')).index();
-			debugger
+			
 			if (rowSelect == false) {
 				emit('cartelera', data);
 			} else {

@@ -41,7 +41,7 @@ onMounted(async () => {
 		});
 		tblSalas.on('click', 'tr', async function () {
 			let data = tblSalas.row($(this).closest('tr')).data();
-			debugger
+			
 			let rowSelect = tblSalas.row({ selected: true }).index() === tblSalas.row($(this).closest('tr')).index();
 			if (rowSelect == false) {
 				let item = data;

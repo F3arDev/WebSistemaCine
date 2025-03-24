@@ -69,7 +69,7 @@ let carteleraID;
 let resAsientos = [];
 
 const GenerarFactura = (() => {
-	debugger
+	
 	router.push('/employ/home');
 })
 
@@ -80,13 +80,13 @@ const loadBoleto = (async () => {
 	}
 	let result = await boleServices.crearBoleto(tipoCLiente, carteleraID, facturaID, numAsiento);
 	await dtBoletosFuncion.value.dtUpdate(facturaID);
-	debugger
+	
 	console.log(result)
 })
 
 const handelDtBoletos = (number, resAsientos) => {
 	console.log(`Evento: ${resAsientos}`);
-	debugger
+	
 	helloRef.value.SeatingComponent(number, resAsientos);
 };
 

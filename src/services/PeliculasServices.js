@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-
+import urlDesarrollo from '/src/services/url_global.js'; // Importa la constante urlDesarrollo
 class PeliculasServices {
 	peliculas;
 	constructor() {
@@ -10,7 +10,7 @@ class PeliculasServices {
 	}
 	async fetchAll() {
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Pelicula/ListarPeliculas';
+			const url = `${urlDesarrollo}/api/Pelicula/ListarPeliculas`;
 			const result = await fetch(url)
 			const json = await result.json();
 			this.peliculas.value = await json.response;
@@ -29,7 +29,7 @@ class PeliculasServices {
 			"tipo": j
 		}
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Pelicula/GuardarPelicula';
+			const url = `${urlDesarrollo}/api/Pelicula/GuardarPelicula`;
 			const result = await fetch(url, {
 				method: 'POST',
 				headers: {
@@ -47,7 +47,7 @@ class PeliculasServices {
 
 	async ActualizarPelicula(x, y, z, w, i, j, k) {
 		try {
-			const url = `http://www.sistemacine.somee.com/api/Pelicula/ActualizarPelicula/${x}`;
+			const url = `${urlDesarrollo}/api/Pelicula/ActualizarPelicula/${x}`;
 			const result = await fetch(url, {
 				method: 'PUT', // Cambiado a PUT
 				headers: {
@@ -81,7 +81,7 @@ class PeliculasServices {
 
 	async EliminarPelicula(x) {
 		try {
-			const url = `http://www.sistemacine.somee.com/api/Pelicula/EliminarPelicula/${x}`;
+			const url = `${urlDesarrollo}api/Pelicula/EliminarPelicula/${x}`;
 			const result = await fetch(url, {
 				method: 'DELETE',
 				headers: {
@@ -89,7 +89,7 @@ class PeliculasServices {
 					// Puedes agregar más encabezados según sea necesario
 				}
 			});
-			debugger
+			
 			if (result.ok) {
 				const json = await result.json();
 				console.log('Eliminación exitosa:', json);

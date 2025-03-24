@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import urlDesarrollo from '/src/services/url_global.js'; // Importa la constante urlDesarrollo
 
 class FacturaServices {
 	facturas;
@@ -20,7 +21,7 @@ class FacturaServices {
 	}
 	async fetchAll() {
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Factura/ListarFactura';
+			const url = `${urlDesarrollo}/api/Factura/ListarFactura`;
 			const result = await fetch(url)
 			const json = await result.json();
 			this.factura.value = await json.response;
@@ -35,7 +36,7 @@ class FacturaServices {
 			"clienteID": '1'
 		}
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Factura/GuardarFactura'
+			const url = `${urlDesarrollo}/api/Factura/GuardarFactura`
 			const result = await fetch(url, {
 				method: 'POST',
 				headers: {
@@ -57,7 +58,7 @@ class FacturaServices {
 
 	async fetchFacturaID(id) {
 		try {
-			const url = `http://www.sistemacine.somee.com/api/Factura/ObtenerFactura/${id}`;
+			const url = `${urlDesarrollo}/api/Factura/ObtenerFactura/${id}`;
 			const result = await fetch(url)
 			const json = await result.json();
 			this.facturasXID.value = await json.response;

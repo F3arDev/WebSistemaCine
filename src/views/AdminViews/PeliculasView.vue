@@ -185,7 +185,7 @@ const DesabilitarPelicula = (() => {
 })
 
 const getData = (x) => {
-	debugger
+	
 	data = x
 }
 </script>

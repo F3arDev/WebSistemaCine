@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-
+import urlDesarrollo from '/src/services/url_global.js'; // Importa la constante urlDesarrollo
 class carteleraServices {
 	cartelera;
 	constructor() {
@@ -10,7 +10,7 @@ class carteleraServices {
 	}
 	async fetchAll() {
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Cartelera/ListarCartelera';
+			const url = `${urlDesarrollo}/api/Cartelera/ListarCartelera`;
 			const result = await fetch(url)
 			const json = await result.json();
 
@@ -29,7 +29,7 @@ class carteleraServices {
 			"salaID": w
 		}
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Cartelera/GuardarCartelera';
+			const url = `${urlDesarrollo}/api/Cartelera/GuardarCartelera`;
 			const result = await fetch(url, {
 				method: 'POST',
 				headers: {
@@ -55,7 +55,7 @@ class carteleraServices {
 					// Puedes agregar más encabezados según sea necesario
 				}
 			});
-			debugger
+			
 			if (result.ok) {
 				const json = await result.json();
 				console.log('Eliminación exitosa:', json);

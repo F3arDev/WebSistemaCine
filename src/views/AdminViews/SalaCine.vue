@@ -132,7 +132,7 @@ const DesabilitarSala = (() => {
 })
 
 const getData = (x) => {
-	debugger
+	
 	data = x
 }
 

@@ -78,11 +78,11 @@ onMounted(async () => {
 		$('#tblCartelera').on('click', 'tr', async function () {
 			let data = await tblCartelera.row($(this).closest('tr')).data();
 			let rowSelect = tblCartelera.row({ selected: true }).index() === tblCartelera.row($(this).closest('tr')).index();
-			debugger
+			
 			if (rowSelect == false) {
 				await Saervices.fetchSalaID(data.iD_Sala);
 				salas = await Saervices.getsalas();
-				debugger
+				
 				console.log(data.asientosOcupados)
 				let item = JSON.stringify(data.asientosOcupados)
 				emit('resAsientos', item)
@@ -106,7 +106,7 @@ onUnmounted(() => {
 });
 
 const dtUpdate = (async () => {
-	debugger
+	
 	await cartService.fetchAll();
 	carteleras = await cartService.getCarteleras();
 	tblCartelera.clear().rows.add(carteleras.value).draw();

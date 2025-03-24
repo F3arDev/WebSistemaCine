@@ -48,7 +48,7 @@ onMounted(async () => {
 
 		tblPelicula.on('click', 'tr', async function () {
 			let data = tblPelicula.row($(this).closest('tr')).data();
-			debugger
+			
 			let rowSelect = tblPelicula.row({ selected: true }).index() === tblPelicula.row($(this).closest('tr')).index();
 			if (rowSelect == false) {
 				let item = data

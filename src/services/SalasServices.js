@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-
+import urlDesarrollo from '/src/services/url_global.js'; // Importa la constante urlDesarrollo
 class SalasServices {
 	salas;
 	constructor() {
@@ -10,10 +10,11 @@ class SalasServices {
 	}
 	async fetchAll() {
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Sala/ListarSala';
-			const result = await fetch(url)
-			const json = await result.json();
+			const url = `${urlDesarrollo}/api/Sala/ListarSala`;
 
+			const result = await fetch(url)
+
+			const json = await result.json();
 			this.salas.value = await json.response;
 		} catch (error) {
 			console.log(error)
@@ -21,7 +22,7 @@ class SalasServices {
 	}
 	async fetchSalaID(id) {
 		try {
-			const url = `http://www.sistemacine.somee.com/api/Sala/ObtenerSala/${id}`;
+			const url = `${urlDesarrollo}/api/Sala/ObtenerSala/${id}`;
 			const result = await fetch(url)
 			const json = await result.json();
 			this.salas.value = await json.sala;
@@ -35,9 +36,9 @@ class SalasServices {
 			"numeroSala": x,
 			"capacidadAsientos": y
 		}
-		debugger
+		
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Sala/GuardarSala';
+			const url = `${urlDesarrollo}/api/Sala/GuardarSala`;
 			const result = await fetch(url, {
 				method: 'POST',
 				headers: {
@@ -55,7 +56,7 @@ class SalasServices {
 
 	async EliminarSala(x) {
 		try {
-			const url = `http://www.sistemacine.somee.com/api/Sala/EliminaSala/${x}`;
+			const url = `${urlDesarrollo}/api/Sala/EliminaSala/${x}`;
 			const result = await fetch(url, {
 				method: 'DELETE',
 				headers: {
@@ -63,7 +64,7 @@ class SalasServices {
 					// Puedes agregar más encabezados según sea necesario
 				}
 			});
-			debugger
+			
 			if (result.ok) {
 				const json = await result.json();
 				console.log('Eliminación exitosa:', json);
@@ -80,7 +81,7 @@ class SalasServices {
 
 	async ActualizarSala(x, y, z) {
 		try {
-			const url = `http://www.sistemacine.somee.com/api/Sala/ActualizarSala/${x}`;
+			const url = `${urlDesarrollo}/api/Sala/ActualizarSala/${x}`;
 			const result = await fetch(url, {
 				method: 'PUT', // Cambiado a PUT
 				headers: {

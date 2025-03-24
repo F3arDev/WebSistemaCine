@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-
+import urlDesarrollo from '/src/services/url_global.js'; // Importa la constante urlDesarrollo
 class ClienteServices {
 	cliente;
 	constructor() {
@@ -10,7 +10,7 @@ class ClienteServices {
 	}
 	async fetchAll() {
 		try {
-			const url = 'http://sistemacine.somee.com/api/Cliente/ListarClientes';
+			const url = `${urlDesarrollo}/api/Cliente/ListarClientes`;
 			const result = await fetch(url)
 			const json = await result.json();
 			this.cliente.value = await json.response;

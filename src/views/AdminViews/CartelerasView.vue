@@ -109,7 +109,7 @@ const CrearCartelera = (async () => {
 	await salaServices.fetchAll();
 	let listSalas = await salaServices.getsalas();
 
-	debugger
+	
 	let formCrud = $('#formCrud')[0];
 	alertify.confirm('')
 		.setHeader('<div style="text-align: center; font-size: 1.2em; font-weight: bold">Crear Cartelera</div>')
@@ -247,7 +247,7 @@ const ActualizarCartelera = (async () => {
 
 
 	let carteleraIDData = await cartServices.fetchCarterleraID(data.value);
-	debugger
+	
 	let formCrud = $('#formCrud')[0];
 	alertify.confirm('')
 		.setHeader('<div style="text-align: center; font-size: 1.2em; font-weight: bold">Crear Cartelera</div>')
@@ -397,7 +397,7 @@ const DesabilitarCartelera = (() => {
 				if (!resutl) {
 					alertify.error('Error al Eliminarla');
 				}
-				debugger
+				
 				await dtCarteleraRef.value.dtUpdate();
 				alertify.success('Eliminada Correctamente');
 			}

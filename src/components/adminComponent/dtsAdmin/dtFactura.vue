@@ -78,14 +78,14 @@ onMounted(async () => {
 		// $('#tblCartelera').on('click', 'tr', async function () {
 		// 	let data = tblCartelera.row($(this).closest('tr')).data();
 		// 	let rowSelect = tblCartelera.row({ selected: true }).index() === tblCartelera.row($(this).closest('tr')).index();
-		// 	debugger
+		// 	
 		// 	if (rowSelect == false) {
 		// 		await Saervices.fetchSalaID(data.salaID);
 		// 		salas = await Saervices.getsalas();
 		// 		emit('resAsientos', data.asientosReservados)
 		// 		emit('update', salas.value.capacidadAsientos, data.asientosReservados);
 		// 		emit('cartelera', data.carteleraID);
-		// 		debugger
+		// 		
 		// 	} else {
 		// 		console.log('La fila a sido deseleccionada')
 		// 		emit('update', 0);

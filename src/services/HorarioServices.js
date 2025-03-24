@@ -1,5 +1,5 @@
 import { ref } from "vue";
-
+import urlDesarrollo from '/src/services/url_global.js'; // Importa la constante urlDesarrollo
 class HorarioServices {
 	Horarios;
 
@@ -11,10 +11,10 @@ class HorarioServices {
 	}
 	async fetchAll() {
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Horario/ListarHorario';
+			const url = `${urlDesarrollo}/api/Horario/ListarHorario`;
 			const result = await fetch(url)
 			const json = await result.json();
-			debugger
+			
 			this.Horarios.value = await json.response;
 		} catch (error) {
 			console.log(error)
@@ -26,9 +26,9 @@ class HorarioServices {
 			"horaInicio": y,
 			"horaFin": z
 		}
-		debugger
+		
 		try {
-			const url = 'http://www.sistemacine.somee.com/api/Horario/GuardarHorario';
+			const url = `${urlDesarrollo}/api/Horario/GuardarHorario`;
 			const result = await fetch(url, {
 				method: 'POST',
 				headers: {
@@ -45,7 +45,7 @@ class HorarioServices {
 	}
 	async EliminarHorario(x) {
 		try {
-			const url = `http://www.sistemacine.somee.com/api/Horario/EliminaHorario/${x}`;
+			const url = `${urlDesarrollo}/api/Horario/EliminaHorario/${x}`;
 			const result = await fetch(url, {
 				method: 'DELETE',
 				headers: {
@@ -53,7 +53,7 @@ class HorarioServices {
 					// Puedes agregar más encabezados según sea necesario
 				}
 			});
-			debugger
+			
 			if (result.ok) {
 				const json = await result.json();
 				console.log('Eliminación exitosa:', json);
@@ -69,7 +69,7 @@ class HorarioServices {
 	}
 	async ActualizarHorario(x, y, z, w) {
 		try {
-			const url = `http://www.sistemacine.somee.com/api/Horario/ActualizarHorario/${x}`;
+			const url = `${urlDesarrollo}/api/Horario/ActualizarHorario/${x}`;
 			const result = await fetch(url, {
 				method: 'PUT', // Cambiado a PUT
 				headers: {
